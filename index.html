@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hanz Kyle R. Galam</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --deep: #0f4c5c;
+            --deep-dark: #0a3440;
+            --sea: #2a9d8f;
+            --sand: #e9c46a;
+            --page: #eef6f6;
+            --ink: #14313a;
+            --line: #cfe3e3;
+        }
+
+        body {
+            font-family: Georgia, "Times New Roman", serif;
+            background-color: var(--page);
+            color: var(--ink);
+            margin: 0;
+            line-height: 1.75;
+        }
+
+        h1, h2, h3, nav, button, th, label, figcaption, .hero-role {
+            font-family: "Trebuchet MS", Verdana, sans-serif;
+        }
+
+        /* Hero: photo on the left, name on the right */
+        .hero {
+            background-color: var(--deep);
+            color: #ffffff;
+            padding: 48px 24px;
+        }
+
+        .hero-inner {
+            max-width: 980px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 36px;
+        }
+
+        .hero-text h1 {
+            margin: 0;
+            font-size: 2.4rem;
+            line-height: 1.2;
+        }
+
+        .hero-role {
+            margin: 10px 0 0;
+            color: var(--sand);
+            font-size: 1.05rem;
+        }
+
+        .hero-text p {
+            margin: 10px 0 0;
+            color: #cfe9e6;
+            max-width: 46ch;
+        }
+
+        /* Profile photo */
+        .hero img,
+        .photo-slot {
+            width: 220px;
+            height: 220px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            border: 5px solid var(--sand);
+        }
+
+        .hero img {
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .photo-slot {
+            border-style: dashed;
+            background: rgba(255, 255, 255, 0.08);
+            color: #cfe9e6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-family: "Trebuchet MS", Verdana, sans-serif;
+            font-size: 0.9rem;
+            padding: 12px;
+        }
+
+        /* Tabs: underline style */
+        nav {
+            background-color: var(--deep-dark);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 5;
+        }
+
+        nav a {
+            color: #cfe9e6;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 16px 26px;
+            border-bottom: 4px solid transparent;
+        }
+
+        nav a:hover {
+            color: #ffffff;
+            border-bottom-color: var(--sea);
+        }
+
+        nav a.active {
+            color: #ffffff;
+            border-bottom-color: var(--sand);
+        }
+
+        nav a:focus-visible {
+            outline: 3px solid var(--sand);
+            outline-offset: -3px;
+        }
+
+        /* Pages */
+        main {
+            max-width: 980px;
+            margin: 32px auto;
+            padding: 0 20px;
+            min-height: 320px;
+        }
+
+        .page {
+            display: none;
+            background-color: #ffffff;
+            border: 1px solid var(--line);
+            border-left: 8px solid var(--sea);
+            border-radius: 6px;
+            padding: 30px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: var(--deep);
+            font-size: 1.7rem;
+        }
+
+        h3 {
+            color: var(--deep);
+        }
+
+        a {
+            color: var(--deep);
+        }
+
+        ul, ol {
+            padding-left: 24px;
+        }
+
+        li::marker {
+            color: var(--sea);
+            font-weight: bold;
+        }
+
+        button {
+            background-color: var(--deep);
+            color: #ffffff;
+            border: none;
+            padding: 11px 24px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: var(--sea);
+        }
+
+        button:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible {
+            outline: 3px solid var(--sand);
+            outline-offset: 2px;
+        }
+
+        /* Download button in the footer */
+        .btn-download {
+            background-color: var(--sea);
+            border: 2px solid var(--deep);
+        }
+
+        .btn-download:hover {
+            background-color: var(--deep);
+        }
+
+        /* Table */
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 0.9rem;
+            font-family: "Trebuchet MS", Verdana, sans-serif;
+        }
+
+        th {
+            background-color: var(--deep);
+            color: #ffffff;
+        }
+
+        th, td {
+            border: 1px solid var(--line);
+            padding: 10px;
+            text-align: left;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f3f9f9;
+        }
+
+        /* Gallery: all photos the same size */
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 18px;
+        }
+
+        .gallery figure {
+            margin: 0;
+            width: calc((100% - 32px) / 3);
+        }
+
+        .gallery .slot,
+        .gallery img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            border-radius: 6px;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .gallery img {
+            border: 3px solid var(--line);
+        }
+
+        .gallery .slot {
+            border: 3px dashed var(--sea);
+            background: #f3f9f9;
+            color: #4b7a80;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-family: "Trebuchet MS", Verdana, sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .gallery figcaption {
+            margin-top: 6px;
+            font-size: 0.85rem;
+            color: #4b7a80;
+        }
+
+        /* Form */
+        input, textarea {
+            width: 100%;
+            max-width: 440px;
+            padding: 10px;
+            border: 2px solid var(--line);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--sea);
+        }
+
+        footer {
+            text-align: center;
+            padding: 24px 20px 32px;
+            color: #4b7a80;
+            font-size: 0.9rem;
+        }
+
+        /* Phones */
+        @media (max-width: 700px) {
+            .hero-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 1.9rem;
+            }
+
+            nav a {
+                padding: 12px 14px;
+            }
+
+            .gallery figure {
+                width: calc((100% - 16px) / 2);
+            }
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            nav a {
+                transition: color 0.2s, border-color 0.2s;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <div class="hero-inner">
+            <!-- PROFILE PHOTO: keep this, or swap the src to your own picture -->
+            <img src="images/k1.jpg" alt="Photo of Hanz Kyle R. Galam" width="220" height="220">
+
+            <div class="hero-text">
+                <h1>Hanz Kyle R. Galam</h1>
+                <p class="hero-role">College freshman learning HTML</p>
+                <p>I like building small projects and figuring out how websites and programs work.</p>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <a href="#about" data-page="about" class="active">About</a>
+        <a href="#skills" data-page="skills">Skills</a>
+        <a href="#schedule" data-page="schedule">Schedule</a>
+        <a href="#gallery" data-page="gallery">Gallery</a>
+        <a href="#contact" data-page="contact">Contact</a>
+    </nav>
+
+    <main>
+        <section id="about" class="page active">
+            <h2>About Me</h2>
+            <p>Hi! I am Hanz Kyle R. Galam, a college freshman who loves tinkering with computers and figuring out how things work behind the screen. I am studying computing, and I enjoy turning ideas into small, working projects.</p>
+
+            <p><button type="button" onclick="toggleAbout()">Read more</button></p>
+
+            <div id="about-more" style="display: none;">
+                <p>
+                    Outside of class, I like playing online games with friends, listening to music
+                    while I code, and watching videos about new gadgets and software.
+                </p>
+                <p>
+                    This year I am learning HTML. My next goal is to build a simple
+                    Java program on my own and publish a personal website. Long term, I want to
+                    become a software developer who builds tools people actually use.
+                </p>
+            </div>
+        </section>
+
+        <section id="skills" class="page">
+            <h2>My Skills and Interests</h2>
+            <ul>
+                <li>Building and customizing PCs</li>
+                <li>Video editing</li>
+                <li>Graphic design basics</li>
+                <li>Game strategy and team play</li>
+                <li>Typing fast and accurately</li>
+                <li>Playing guitar</li>
+            </ul>
+
+            <h3>My Learning Goals</h3>
+            <ol>
+                <li>Make my first small game</li>
+                <li>Design a clean personal website</li>
+                <li>Learn JavaScript</li>
+                <li>Join a school tech or esports club</li>
+            </ol>
+        </section>
+
+        <section id="schedule" class="page">
+            <h2>My Class Schedule</h2>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Descriptive Title</th>
+                            <th>Units</th>
+                            <th>Day</th>
+                            <th>Time</th>
+                            <th>Prof./Instructor</th>
+                            <th>Room</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CSCC 1</td>
+                            <td>Introduction to Computing</td>
+                            <td>3</td>
+                            <td>MW<br>F</td>
+                            <td>8:00 – 9:00 am (Lec)<br>8:00 – 10:00 am (Lab)</td>
+                            <td>Prof. A. Reyes</td>
+                            <td>Rm 201<br>Comp Lab</td>
+                        </tr>
+                        <tr>
+                            <td>CSCC 2</td>
+                            <td>Programming 1</td>
+                            <td>3</td>
+                            <td>TTh<br>Th</td>
+                            <td>9:00 – 10:30 am (Lec)<br>1:00 – 3:00 pm (Lab)</td>
+                            <td>Sir D. Santos</td>
+                            <td>Rm 201<br>Comp Lab</td>
+                        </tr>
+                        <tr>
+                            <td>GE 01</td>
+                            <td>Purposive Communication</td>
+                            <td>3</td>
+                            <td>MW</td>
+                            <td>10:00 – 11:30 am</td>
+                            <td>Ma'am L. Cruz</td>
+                            <td>Rm 105</td>
+                        </tr>
+                        <tr>
+                            <td>GE 03</td>
+                            <td>Mathematics in the Modern World</td>
+                            <td>3</td>
+                            <td>TTh</td>
+                            <td>10:30 am – 12:00 nn</td>
+                            <td>Engr. P. Villanueva</td>
+                            <td>Rm 105</td>
+                        </tr>
+                        <tr>
+                            <td>GE 02</td>
+                            <td>Readings in Philippine History</td>
+                            <td>3</td>
+                            <td>MW</td>
+                            <td>1:00 – 2:30 pm</td>
+                            <td>Prof. G. Mendoza</td>
+                            <td>Rm 203</td>
+                        </tr>
+                        <tr>
+                            <td>Fil 1</td>
+                            <td>Filipino sa Iba't-ibang Disiplina</td>
+                            <td>3</td>
+                            <td>F</td>
+                            <td>1:00 – 4:00 pm</td>
+                            <td>Sir R. Aquino</td>
+                            <td>Rm 203</td>
+                        </tr>
+                        <tr>
+                            <td>PE 1</td>
+                            <td>Physical Fitness</td>
+                            <td>2</td>
+                            <td>F</td>
+                            <td>10:30 am – 12:30 pm</td>
+                            <td>Ma'am C. Lim</td>
+                            <td>Gym</td>
+                        </tr>
+                        <tr>
+                            <td>CE 1</td>
+                            <td>Introduction to the Bible</td>
+                            <td>3</td>
+                            <td>Sat</td>
+                            <td>8:00 – 11:00 am</td>
+                            <td>Ptr. N. Bautista</td>
+                            <td>Rm 105</td>
+                        </tr>
+                        <tr>
+                            <td>NSTP 1</td>
+                            <td>National Service Training Program 1</td>
+                            <td>3</td>
+                            <td>Sat</td>
+                            <td>1:00 – 4:00 pm</td>
+                            <td>Prof. E. Garcia</td>
+                            <td>Gym</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="gallery" class="page">
+            <h2>Gallery</h2>
+            <p>A few moments from school, projects, and the people I hang out with.</p>
+
+            <div class="gallery">
+                <figure>
+                    <img src="images/k1.jpg" alt="First day of college">
+                    <figcaption>First day of college</figcaption>
+                </figure>
+
+                <figure>
+                    <img src="images/k2.jpg" alt="My setup while coding">
+                    <figcaption>My setup while coding</figcaption>
+                </figure>
+
+                <figure>
+                    <img src="images/k3.jpg" alt="With my block">
+                    <figcaption>With my block</figcaption>
+                </figure>
+
+                <figure>
+                    <img src="images/k4.jpg" alt="Group project night">
+                    <figcaption>Group project night</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section id="contact" class="page">
+            <h2>Contact Information</h2>
+            <p>Email: <a href="mailto:rapgalam@gmail.com">rapgalam@gmail.com</a></p>
+
+            <form action="#" method="post">
+                <p>
+                    <label for="name">Name:</label><br>
+                    <input type="text" id="name" name="name" required>
+                </p>
+                <p>
+                    <label for="email">Email:</label><br>
+                    <input type="email" id="email" name="email" required>
+                </p>
+                <p>
+                    <label for="message">Message:</label><br>
+                    <textarea id="message" name="message" rows="5" cols="40" required></textarea>
+                </p>
+                <p>
+                    <button type="submit">Send message</button>
+                </p>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Hanz Kyle R. Galam</p>
+        <p>
+            <button type="button" class="btn-download" onclick="downloadPage()">
+                ⬇ Download this page (.html)
+            </button>
+        </p>
+    </footer>
+
+    <script>
+        // Show or hide the extra "About" text
+        function toggleAbout() {
+            var more = document.getElementById("about-more");
+            var button = document.querySelector("#about button");
+
+            if (more.style.display === "none") {
+                more.style.display = "block";
+                button.textContent = "Show less";
+            } else {
+                more.style.display = "none";
+                button.textContent = "Read more";
+            }
+        }
+
+        // Switch pages when a tab is clicked
+        var navLinks = document.querySelectorAll("nav a");
+        var pages = document.querySelectorAll(".page");
+
+        function showPage(id) {
+            pages.forEach(function (page) {
+                page.classList.toggle("active", page.id === id);
+            });
+            navLinks.forEach(function (link) {
+                link.classList.toggle("active", link.dataset.page === id);
+            });
+        }
+
+        navLinks.forEach(function (link) {
+            link.addEventListener("click", function (event) {
+                event.preventDefault();
+                showPage(link.dataset.page);
+            });
+        });
+
+        /* ---------- DOWNLOAD THE PAGE ---------- */
+        function downloadPage() {
+            // Work on a copy of the page so the live page is untouched
+            var clone = document.documentElement.cloneNode(true);
+
+            // Reset the copy back to its "fresh" state
+            clone.querySelectorAll(".page").forEach(function (page) {
+                page.classList.toggle("active", page.id === "about");
+            });
+            clone.querySelectorAll("nav a").forEach(function (link) {
+                link.classList.toggle("active", link.dataset.page === "about");
+            });
+
+            var more = clone.querySelector("#about-more");
+            if (more) more.style.display = "none";
+
+            var aboutBtn = clone.querySelector("#about button");
+            if (aboutBtn) aboutBtn.textContent = "Read more";
+
+            // Turn the copy into a file and download it
+            var html = "<!DOCTYPE html>\n" + clone.outerHTML;
+            var blob = new Blob([html], { type: "text/html;charset=utf-8" });
+            var url = URL.createObjectURL(blob);
+
+            var link = document.createElement("a");
+            link.href = url;
+            link.download = "kyle.html";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
+        }
+
+        /* ---------- MISSING-IMAGE PLACEHOLDERS ---------- */
+        document.querySelectorAll("img").forEach(function (img) {
+            img.addEventListener("error", function () {
+                var slot = document.createElement("div");
+                slot.className = img.closest(".gallery") ? "slot" : "photo-slot";
+                slot.textContent = "Add " + (img.getAttribute("src") || "image");
+                img.replaceWith(slot);
+            });
+        });
+    </script>
+
+</body>
+</html>
